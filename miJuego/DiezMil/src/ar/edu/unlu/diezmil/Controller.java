@@ -25,4 +25,8 @@ public class Controller {
 	public void terminarTurno() {
 		juego.nextTurno();
 	}
+
+	public void reiniciar() {
+	
+	}
 }
