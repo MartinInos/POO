@@ -12,9 +12,10 @@ public class Partida implements Observable<PartidaObserver>{
 	private final int PMAX = 10000;
 	private ArrayList<Jugador> jugadores;
 	private ArrayList<PartidaObserver> observers;
+	private int cantJugadores;
 
-	public Partida() {
-		nuevaPartida();
+	public Partida(int cantJ) {
+		nuevaPartida(cantJ);
 		observers = new ArrayList<PartidaObserver>();
 	}
 	public ArrayList<Dado>  tirar() {	
@@ -24,11 +25,13 @@ public class Partida implements Observable<PartidaObserver>{
 	public int getAcumuladoTurno() {
 		return this.ptsAcumTurno;
 	}
-	public void nuevaPartida() {
+	public void nuevaPartida(int c) {
+		
 		this.cubilete = new Cubilete();
 		this.turnoActual = 1;
 		this.ptsAcumTurno = 0;
 		jugadores = new ArrayList<Jugador>();
+		this.cantJugadores = c;
 	}
 	public int contarPuntos(ArrayList<Dado> tiro) {
 		int puntos = 0;
