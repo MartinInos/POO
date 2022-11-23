@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import ar.edu.unlu.diezmil.vista.VentanaPrincipal;
 
 public class Partida implements Observable<PartidaObserver>{
+
+// Atributos  
 	
 	private Cubilete cubilete;
 	private int turnoActual;
@@ -14,10 +16,18 @@ public class Partida implements Observable<PartidaObserver>{
 	private ArrayList<PartidaObserver> observers;
 	private int cantJugadores;
 
+// Metodo Constructor
+	public Partida() {
+		nuevaPartida(2);
+		observers = new ArrayList<PartidaObserver>();
+	}
 	public Partida(int cantJ) {
 		nuevaPartida(cantJ);
 		observers = new ArrayList<PartidaObserver>();
 	}
+	
+// Metodos
+	
 	public ArrayList<Dado>  tirar() {	
 		notifyObserversTiro(this.cubilete.arrojarDados());
 		return this.cubilete.getDados();
@@ -125,7 +135,7 @@ public class Partida implements Observable<PartidaObserver>{
 		return this.turnoActual;
 	}
 
-	public boolean isSumable(int nuevosPuntos, Jugador j) {
+	private boolean isSumable(int nuevosPuntos, Jugador j) {
 		if (j.getPuntaje() == 0) {
 			if (j.getPuntaje() + nuevosPuntos <= 10000 && nuevosPuntos != 0) {
 				return true;
@@ -147,12 +157,32 @@ public class Partida implements Observable<PartidaObserver>{
 	public int getPuntosTurno() {
 		return this.ptsAcumTurno;
 	}
+	public void resetPartida() {
+		this.ptsAcumTurno = 0;
+		int i = 0;
+		while (i < jugadores.size()) {
+			jugadores.get(i).resetPuntaje();
+			i++;
+		}
+		this.turnoActual = 1;
+		this.cubilete = new Cubilete();
+		notifyObserversReiniciar(this.cantJugadores);
+		
+	}
+	
+	
 	
 	// Notificadores----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	private void notifyObserversPuntos(int mostrarPuntosTiro) {
 		for (PartidaObserver o : observers) {
 			o.notifyPuntosTurno(mostrarPuntosTiro);
+		}
+		
+	}
+	private void notifyObserversReiniciar(int cantJ) {
+		for (PartidaObserver o : observers) {
+			o.notifyReset(cantJ);
 		}
 		
 	}
@@ -191,6 +221,7 @@ public class Partida implements Observable<PartidaObserver>{
 		}	
 		
 	}
+	
 
 
 	

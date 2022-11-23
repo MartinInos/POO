@@ -44,6 +44,12 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class VentanaPrincipal extends JFrame implements PartidaObserver {
@@ -61,9 +67,9 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 	private JLabel lblPuntos;
 	private JLabel lblTurno;
 	private JLabel lblAcumulado;
-	private JButton btnNuevaPartida;
+	private JButton btnIniciarPartida;
 	private JButton btnInstrucciones;
-	private JButton btnOpciones;
+	private JButton btnReset;
 	private JButton btnSeguir;
 	private JButton btnPlantarse;
 	/**
@@ -85,19 +91,19 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 	//	DiezMil juego = new DiezMil();	
 		frame = new JFrame();
 		frame.getContentPane().setForeground(Color.WHITE);
-		frame.getContentPane().setBackground(new Color(0, 128, 128));
+		frame.getContentPane().setBackground(new Color(0, 139, 139));
 		frame.setMinimumSize(new Dimension(800, 600));
 		frame.setResizable(false);
 		frame.setBounds(0, 0, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				JPanel panel_pantallaDeJuego = new JPanel();
-				panel_pantallaDeJuego.setBounds(125, 0, 469, 561);
+				panel_pantallaDeJuego.setBounds(177, 0, 417, 561);
 				panel_pantallaDeJuego.setBackground(new Color(255, 255, 255));
 				
 				JPanel panel_4 = new JPanel();
 				panel_4.setBackground(new Color(0, 128, 128));
-				panel_4.setBounds(84, 235, 300, 64);
+				panel_4.setBounds(62, 235, 300, 64);
 				frame.getContentPane().setLayout(null);
 				
 				
@@ -137,7 +143,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				lblTurno = new JLabel("Turno Jugador");
 				lblTurno.setBackground(Color.WHITE);
 				lblTurno.setHorizontalAlignment(SwingConstants.CENTER);
-				lblTurno.setBounds(84, 11, 300, 42);
+				lblTurno.setBounds(62, 11, 300, 42);
 				lblTurno.setForeground(new Color(0, 0, 0));
 				lblTurno.setFont(new Font("Roboto", Font.PLAIN, 20));
 				frame.getContentPane().add(panel_pantallaDeJuego);
@@ -147,7 +153,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				panel_pantallaDeJuego.add(panel_4);
 				
 				btnTirarDados = new JButton("");
-				btnTirarDados.setBounds(350, 407, 109, 143);
+				btnTirarDados.setBounds(253, 407, 109, 143);
 				panel_pantallaDeJuego.add(btnTirarDados);
 				btnTirarDados.setBorder(null);
 				btnTirarDados.setEnabled(false);
@@ -160,12 +166,12 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				lblAcumulado.setForeground(Color.BLACK);
 				lblAcumulado.setFont(new Font("Roboto", Font.PLAIN, 20));
 				lblAcumulado.setBackground(Color.WHITE);
-				lblAcumulado.setBounds(84, 195, 300, 33);
+				lblAcumulado.setBounds(62, 195, 300, 33);
 				panel_pantallaDeJuego.add(lblAcumulado);
 				
 				JSeparator separator_4 = new JSeparator();
 				separator_4.setBackground(new Color(0, 0, 0));
-				separator_4.setBounds(182, 46, 105, 2);
+				separator_4.setBounds(159, 46, 105, 2);
 				panel_pantallaDeJuego.add(separator_4);
 				
 				
@@ -208,35 +214,35 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				frame.getContentPane().add(labelPuntos);
 				labelPuntos.setFont(new Font("Roboto Light", labelPuntos.getFont().getStyle() | Font.BOLD, labelPuntos.getFont().getSize() + 4));
 				
-				btnNuevaPartida = new JButton("Nueva Partida");
-				btnNuevaPartida.setFont(new Font("Roboto", Font.PLAIN, 11));
-				btnNuevaPartida.addActionListener(new ActionListener() {
+				btnIniciarPartida = new JButton("Iniciar Partida");
+				btnIniciarPartida.setFont(new Font("Roboto", Font.PLAIN, 11));
+				btnIniciarPartida.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 					}
 				});
-				btnNuevaPartida.setBounds(10, 12, 105, 41);
-				frame.getContentPane().add(btnNuevaPartida);
+				btnIniciarPartida.setBounds(10, 12, 157, 41);
+				frame.getContentPane().add(btnIniciarPartida);
 				
 				btnInstrucciones = new JButton("Instrucciones");
 				btnInstrucciones.setFont(new Font("Roboto", Font.PLAIN, 11));
-				btnInstrucciones.setBounds(10, 81, 105, 41);
+				btnInstrucciones.setBounds(10, 81, 157, 41);
 				frame.getContentPane().add(btnInstrucciones);
 				
-				btnOpciones = new JButton("");
-				btnOpciones.setFont(new Font("Roboto", Font.PLAIN, 11));
-				btnOpciones.setBounds(10, 146, 105, 41);
-				frame.getContentPane().add(btnOpciones);
+				btnReset = new JButton("Reiniciar Juego");
+				btnReset.setFont(new Font("Roboto", Font.PLAIN, 11));
+				btnReset.setBounds(10, 146, 157, 41);
+				frame.getContentPane().add(btnReset);
 				
 				JSeparator separator = new JSeparator();
-				separator.setBounds(10, 133, 105, 2);
+				separator.setBounds(10, 133, 157, 2);
 				frame.getContentPane().add(separator);
 				
 				JSeparator separator_1 = new JSeparator();
-				separator_1.setBounds(10, 64, 105, 2);
+				separator_1.setBounds(10, 64, 157, 2);
 				frame.getContentPane().add(separator_1);
 				
 				JSeparator separator_2 = new JSeparator();
-				separator_2.setBounds(10, 198, 105, 2);
+				separator_2.setBounds(10, 198, 157, 2);
 				frame.getContentPane().add(separator_2);
 				
 				JSeparator separator_3 = new JSeparator();
@@ -267,6 +273,11 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				btnPlantarse.setBackground(new Color(0, 139, 139));
 				btnPlantarse.setIcon(null);
 				btnPlantarse.setEnabled(false);
+		
+				/*
+				 * Action Listeners
+				 */	
+				
 				btnPlantarse.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						btnTirarDados.setEnabled(true);
@@ -282,16 +293,12 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 						btnSeguir.setEnabled(false);
 						btnPlantarse.setEnabled(false);
 						}
-					});
-						
-				/*
-				 * Action Listeners
-				 */		
+					});		
+				
 						       /* Inicia el juego 
 								  Y Agrega los jugadores necesarios
 								*/
-		
-						btnNuevaPartida.addActionListener(new ActionListener() {
+						btnIniciarPartida.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								JFrame f = new JFrame();
 								int i = 1;
@@ -317,6 +324,14 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 								f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 								c.tirar();
 							}
+						});
+						
+						btnReset.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								c.reiniciar();	
+							}
+							
 						});
 						
 													
@@ -351,62 +366,19 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 								
 							}
 							private void cambiarIcono(JLabel lblDado, CaraDado caraDado, boolean fijo) {
-								switch (caraDado.ordinal()) {
-									case 0:
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dadoN.png")));
-										break;
-									case 1:
+								if (caraDado.ordinal() == 0) {
+											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dadoN.png")));}
+								else {
 										if (fijo){
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado1F.png")));
+											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado"+caraDado.ordinal()+"F.png")));
 										}else {
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado1.png")));
+											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado"+caraDado.ordinal()+".png")));
 										}
-										break;
-									case 2:
-										if (fijo){
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado2F.png")));
-										}else {
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado2.png")));
-										}
-										break;
-									case 3:
-										if (fijo){
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado3F.png")));
-										}else {
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado3.png")));
-										}
-										break;
-									case 4:
-										if (fijo){
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado4F.png")));
-										}else {
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado4.png")));
-										}
-										break;
-									case 5:
-										if (fijo){
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado5F.png")));
-										}else {
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado5.png")));
-										}
-										break;
-									case 6:
-										if (fijo){
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado6F.png")));
-										}else {
-											lblDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/dado6.png")));
-										}
-										break;
-										
 								}
 							}
 							
 // Notificadores----------------------------------------------------------------------------------------------------------------------------------------------------
 							
-	@Override
-	public void notifyCantJugadores(int cJugadores) {	
-		
-	}
 	@Override
 	public void notifyTiro(ArrayList<Dado> tiro) {
 		updateIcons(tiro);						
@@ -430,11 +402,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 		}
 		
 	}
-	@Override
-	public void notifyJugadorAgregado(String name, int pos) {
-			table.setValueAt(name, pos, 0);
-			table.setValueAt(0, pos, 1);
-	}
+	
 	@Override
 	public void notifyGuardarPuntaje(int turnoActual, int puntosJugador) {
 		table.setValueAt(puntosJugador, turnoActual, 1);
@@ -447,14 +415,22 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 	public void notifyGanador(Jugador jugador) {
 			JFrame f = new JFrame();
 			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			JOptionPane.showMessageDialog(f,jugador.getNombre()+" Gano!!!");	
+			JOptionPane.showMessageDialog(f,jugador.getNombre()+" Gano!!!");
+			c.terminarTurno();
 			btnTirarDados.setEnabled(false);
 			btnSeguir.setEnabled(false);
 			btnPlantarse.setEnabled(false);	
 	}
+	
 	@Override
-	public void notifyGanador(int puntos, String nombre) {
-		// TODO Auto-generated method stub
-		
+	public void notifyReset(int cantJ) {
+		for (int i = 1;i<=cantJ;i++) {
+			table.setValueAt(0, i, 1);
+		}
+	}
+	@Override
+	public void notifyJugadorAgregado(String name, int pos) {
+			table.setValueAt(name, pos, 0);
+			table.setValueAt(0, pos, 1);
 	}
 }

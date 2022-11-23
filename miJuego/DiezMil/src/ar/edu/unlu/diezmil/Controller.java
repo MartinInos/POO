@@ -27,6 +27,6 @@ public class Controller {
 	}
 
 	public void reiniciar() {
-	
+		juego.resetPartida();
 	}
 }

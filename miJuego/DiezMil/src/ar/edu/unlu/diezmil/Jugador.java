@@ -1,6 +1,8 @@
 package ar.edu.unlu.diezmil;
 
-public class Jugador {
+import java.util.ArrayList;
+
+public class Jugador  {
 	
 	private String nombre;
 	private int puntaje;
@@ -18,10 +20,14 @@ public class Jugador {
 	//
 	public void sumarPuntos(int nuevosPuntos) {
 		if (nuevosPuntos == 10000) {
-			this.puntaje = nuevosPuntos;
+			this.puntaje = nuevosPuntos;		
 		}else {
 			this.puntaje+=nuevosPuntos;
 		}
 	}
 
+	public void resetPuntaje() {
+		this.puntaje = 0;
+	}
 }
+	
