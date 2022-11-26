@@ -14,18 +14,12 @@ public class Partida implements Observable<PartidaObserver>{
 	private final int PMAX = 10000;
 	private ArrayList<Jugador> jugadores;
 	private ArrayList<PartidaObserver> observers;
-	private int cantJugadores;
 
 // Metodo Constructor
 	public Partida() {
-		nuevaPartida(2);
 		observers = new ArrayList<PartidaObserver>();
+		nuevaPartida();
 	}
-	public Partida(int cantJ) {
-		nuevaPartida(cantJ);
-		observers = new ArrayList<PartidaObserver>();
-	}
-	
 // Metodos
 	
 	public ArrayList<Dado>  tirar() {	
@@ -35,13 +29,12 @@ public class Partida implements Observable<PartidaObserver>{
 	public int getAcumuladoTurno() {
 		return this.ptsAcumTurno;
 	}
-	public void nuevaPartida(int c) {
-		
+	public void nuevaPartida() {
 		this.cubilete = new Cubilete();
 		this.turnoActual = 1;
 		this.ptsAcumTurno = 0;
 		jugadores = new ArrayList<Jugador>();
-		this.cantJugadores = c;
+		notifyObserversAgregarJugadores(jugadores.size());
 	}
 	public int contarPuntos(ArrayList<Dado> tiro) {
 		int puntos = 0;
@@ -87,16 +80,19 @@ public class Partida implements Observable<PartidaObserver>{
 			}
 		if ((puntos != 0) && (jugadores.get(turnoActual-1).getPuntaje()+ptsAcumTurno+puntos <= PMAX)) {
 			this.ptsAcumTurno+= puntos;
+			this.cubilete.apartar(CaraDado.UNO);
+			this.cubilete.apartar(CaraDado.CINCO);
+			notifyObserversTiro(tiro);
+			notifyObserversPuntos(ptsAcumTurno);
 			if (jugadores.get(turnoActual-1).getPuntaje()+this.ptsAcumTurno == PMAX) {
+				jugadores.get(turnoActual-1).sumarPuntos(ptsAcumTurno);
 				notifyObserversGanador(jugadores.get(turnoActual-1));
 			}
 		}else {
 			this.ptsAcumTurno = 0;
+			notifyObserversTiro(tiro);
+			notifyObserversPuntos(ptsAcumTurno);
 		}
-		this.cubilete.apartar(CaraDado.UNO);
-		this.cubilete.apartar(CaraDado.CINCO);
-		notifyObserversTiro(tiro);
-		notifyObserversPuntos(ptsAcumTurno);
 		return ptsAcumTurno;
 	}
 
@@ -116,7 +112,7 @@ public class Partida implements Observable<PartidaObserver>{
 	public Cubilete getCubilete() {
 		return cubilete;
 	}
-	public void nextTurno() {
+	public void nextTurno(boolean b) {
 		if (isSumable(ptsAcumTurno,jugadores.get(turnoActual-1))) {
 			jugadores.get(turnoActual-1).sumarPuntos(ptsAcumTurno);	
 		}
@@ -126,33 +122,41 @@ public class Partida implements Observable<PartidaObserver>{
 		if (turnoActual == jugadores.size()) {
 			turnoActual = 1;
 		}else turnoActual++;
+		if (!b){
 		notifyObserversTurno(jugadores.get(turnoActual-1));
 		notifyObserversTiro(cubilete.getDados());
+		}	
 	}
-	
-
 	public int getTurnoActual() {
 		return this.turnoActual;
 	}
 
 	private boolean isSumable(int nuevosPuntos, Jugador j) {
-		if (j.getPuntaje() == 0) {
-			if (j.getPuntaje() + nuevosPuntos <= 10000 && nuevosPuntos != 0) {
-				return true;
-			}else return false;
-		}else
-			if (j.getPuntaje() + nuevosPuntos <= 10000 && nuevosPuntos != 0) {
-			return true;
-		}else return false;
+		return (j.getPuntaje() + nuevosPuntos <= PMAX && nuevosPuntos != 0); 
 	}
 	public void addObserver(VentanaPrincipal v1) {
 		observers.add(v1);	
 	}
-	public void agregarJugador(String nombreJ) {
-		Jugador j = new Jugador(nombreJ);
-		jugadores.add(j);	
-		notifyObserversAgregado(nombreJ,jugadores.size());
-		notifyObserversTurno(jugadores.get(turnoActual-1));
+	public boolean agregarJugador(String nombreJ) {
+		if (nombreJ.length() != 0 && !SeRepite(nombreJ)) {
+			Jugador j = new Jugador(nombreJ);
+			jugadores.add(j);	
+			notifyObserversAgregado(nombreJ,jugadores.size(),true);
+			notifyObserversTurno(jugadores.get(turnoActual-1));
+			notifyObserversAgregarJugadores(jugadores.size());
+			return true;
+		}
+		else
+			return false;
+	}
+	private boolean SeRepite(String nombreJ) {
+		boolean seRepite = false;
+		int i = 0;
+		while (!seRepite && i<jugadores.size()) {
+			seRepite = (jugadores.get(i).getNombre().equals(nombreJ));
+			i++;
+		}
+		return seRepite;
 	}
 	public int getPuntosTurno() {
 		return this.ptsAcumTurno;
@@ -166,8 +170,7 @@ public class Partida implements Observable<PartidaObserver>{
 		}
 		this.turnoActual = 1;
 		this.cubilete = new Cubilete();
-		notifyObserversReiniciar(this.cantJugadores);
-		
+		notifyObserversReiniciar(jugadores.size());
 	}
 	
 	
@@ -192,9 +195,9 @@ public class Partida implements Observable<PartidaObserver>{
 		}
 		
 	}
-	private void notifyObserversAgregado(String name, int pos) {
+	private void notifyObserversAgregado(String name, int pos, boolean agregado) {
 		for (PartidaObserver o : observers) {
-			o.notifyJugadorAgregado(name,pos);
+			o.notifyJugadorAgregado(name,pos,agregado);
 		}
 	}
 	private void notifyObserversGuardarPuntaje(int turnoActual, int ptsAcumTurno) {
@@ -219,7 +222,11 @@ public class Partida implements Observable<PartidaObserver>{
 		for (PartidaObserver o : observers) {
 			o.notifyGanador(jugador);
 		}	
-		
+	}
+	private void notifyObserversAgregarJugadores(int cantJ) {
+		for (PartidaObserver o : observers) {
+			o.notifyAddJugador(cantJ>=2);
+		}	
 	}
 	
 

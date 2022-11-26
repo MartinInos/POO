@@ -91,7 +91,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 	//	DiezMil juego = new DiezMil();	
 		frame = new JFrame();
 		frame.getContentPane().setForeground(Color.WHITE);
-		frame.getContentPane().setBackground(new Color(0, 139, 139));
+		frame.getContentPane().setBackground(new Color(0, 102, 51));
 		frame.setMinimumSize(new Dimension(800, 600));
 		frame.setResizable(false);
 		frame.setBounds(0, 0, 450, 300);
@@ -102,11 +102,9 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				panel_pantallaDeJuego.setBackground(new Color(255, 255, 255));
 				
 				JPanel panel_4 = new JPanel();
-				panel_4.setBackground(new Color(0, 128, 128));
-				panel_4.setBounds(62, 235, 300, 64);
+				panel_4.setBackground(new Color(0, 102, 51));
+				panel_4.setBounds(62, 127, 300, 64);
 				frame.getContentPane().setLayout(null);
-				
-				
 			/*
 			 *  Dados	
 			 */
@@ -137,7 +135,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				
 				lblPuntos = new JLabel("0");
 				lblPuntos.setHorizontalAlignment(SwingConstants.CENTER);
-				lblPuntos.setBounds(140, 199, 189, 25);
+				lblPuntos.setBounds(140, 87, 189, 25);
 				lblPuntos.setFont(new Font("Roboto", Font.BOLD, 20));
 				
 				lblTurno = new JLabel("Turno Jugador");
@@ -153,7 +151,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				panel_pantallaDeJuego.add(panel_4);
 				
 				btnTirarDados = new JButton("");
-				btnTirarDados.setBounds(253, 407, 109, 143);
+				btnTirarDados.setBounds(154, 394, 109, 143);
 				panel_pantallaDeJuego.add(btnTirarDados);
 				btnTirarDados.setBorder(null);
 				btnTirarDados.setEnabled(false);
@@ -166,7 +164,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				lblAcumulado.setForeground(Color.BLACK);
 				lblAcumulado.setFont(new Font("Roboto", Font.PLAIN, 20));
 				lblAcumulado.setBackground(Color.WHITE);
-				lblAcumulado.setBounds(62, 195, 300, 33);
+				lblAcumulado.setBounds(62, 83, 300, 33);
 				panel_pantallaDeJuego.add(lblAcumulado);
 				
 				JSeparator separator_4 = new JSeparator();
@@ -220,29 +218,29 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 					public void actionPerformed(ActionEvent e) {
 					}
 				});
-				btnIniciarPartida.setBounds(10, 12, 157, 41);
+				btnIniciarPartida.setBounds(10, 170, 157, 41);
 				frame.getContentPane().add(btnIniciarPartida);
 				
 				btnInstrucciones = new JButton("Instrucciones");
 				btnInstrucciones.setFont(new Font("Roboto", Font.PLAIN, 11));
-				btnInstrucciones.setBounds(10, 81, 157, 41);
+				btnInstrucciones.setBounds(10, 239, 157, 41);
 				frame.getContentPane().add(btnInstrucciones);
 				
 				btnReset = new JButton("Reiniciar Juego");
 				btnReset.setFont(new Font("Roboto", Font.PLAIN, 11));
-				btnReset.setBounds(10, 146, 157, 41);
+				btnReset.setBounds(10, 304, 157, 41);
 				frame.getContentPane().add(btnReset);
 				
 				JSeparator separator = new JSeparator();
-				separator.setBounds(10, 133, 157, 2);
+				separator.setBounds(10, 291, 157, 2);
 				frame.getContentPane().add(separator);
 				
 				JSeparator separator_1 = new JSeparator();
-				separator_1.setBounds(10, 64, 157, 2);
+				separator_1.setBounds(10, 222, 157, 2);
 				frame.getContentPane().add(separator_1);
 				
 				JSeparator separator_2 = new JSeparator();
-				separator_2.setBounds(10, 198, 157, 2);
+				separator_2.setBounds(10, 356, 157, 2);
 				frame.getContentPane().add(separator_2);
 				
 				JSeparator separator_3 = new JSeparator();
@@ -261,7 +259,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				btnSeguir.setFont(new Font("Roboto", Font.PLAIN, 14));
 				btnSeguir.setBorder(null);
 				btnSeguir.setEnabled(false);
-				btnSeguir.setBackground(new Color(0, 139, 139));
+				btnSeguir.setBackground(new Color(0, 102, 51));
 				btnSeguir.setIcon(null);
 				
 				btnPlantarse = new JButton("PLANTARSE");
@@ -270,9 +268,18 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 				btnPlantarse.setForeground(new Color(255, 255, 255));
 				btnPlantarse.setFont(new Font("Roboto", Font.PLAIN, 14));
 				btnPlantarse.setBorder(null);
-				btnPlantarse.setBackground(new Color(0, 139, 139));
+				btnPlantarse.setBackground(new Color(0, 102, 51));
 				btnPlantarse.setIcon(null);
 				btnPlantarse.setEnabled(false);
+				
+				JSeparator separator_2_1 = new JSeparator();
+				separator_2_1.setBounds(10, 157, 157, 2);
+				frame.getContentPane().add(separator_2_1);
+				
+				JLabel lblNewLabel = new JLabel("");
+				lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/ar/edu/unlu/diezmil/resources/ElDiezMil-Icon.jpg")));
+				lblNewLabel.setBounds(22, 14, 130, 132);
+				frame.getContentPane().add(lblNewLabel);
 		
 				/*
 				 * Action Listeners
@@ -283,7 +290,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 						btnTirarDados.setEnabled(true);
 						btnSeguir.setEnabled(false);
 						btnPlantarse.setEnabled(false);
-						c.terminarTurno();
+						c.terminarTurno(false);
 						}
 					});
 				
@@ -300,24 +307,12 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 								*/
 						btnIniciarPartida.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								JFrame f = new JFrame();
 								int i = 1;
-								String cantJugadores = JOptionPane.showInputDialog(f,"Ingrese Cantidad de Jugadores");
-								int cantJ =Integer.parseInt(cantJugadores);
-								c.nuevoJuego(cantJ);
-								while (i<=cantJ) {
-									f = new JFrame();
-									String name = JOptionPane.showInputDialog(f,"Enter Name");
-									if (c.addJugador(name)) {
-										JOptionPane.showMessageDialog(f,"Jugador Agregado Correctamente.","Alert",JOptionPane.WARNING_MESSAGE); 
-										i++;
-									} else JOptionPane.showMessageDialog(f,"El Jugador no fue agregado\nEl nombre no debe ser vacio y tampoco superar los 8 caracteres","Alert",JOptionPane.WARNING_MESSAGE);
-								}
+								c.nuevoJuego();	
 								btnTirarDados.setEnabled(true);
 							}
 						});
-						frame.setLocationRelativeTo(null);
-				
+						
 						btnTirarDados.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								JFrame f = new JFrame();
@@ -331,10 +326,17 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 							public void actionPerformed(ActionEvent e) {
 								c.reiniciar();	
 							}
-							
 						});
 						
-													
+						btnInstrucciones.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								Instrucciones f = new Instrucciones();
+								f.setVisible(true);
+								f.setLocationRelativeTo(null);
+							}
+						});
+						
+			frame.setLocationRelativeTo(null);										
 			frame.setVisible(true);	
 	}
 		private void updateIcons(ArrayList<Dado> dadosTirados) {
@@ -390,7 +392,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 		if (puntos == 0) {
 			lblPuntos.setText(""+puntos);
 			JOptionPane.showMessageDialog(f," Has Perdido el acumulado");	
-			c.terminarTurno();
+			c.terminarTurno(false);
 			btnSeguir.setEnabled(false);
 			btnPlantarse.setEnabled(false);
 			btnTirarDados.setEnabled(true);
@@ -402,7 +404,6 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 		}
 		
 	}
-	
 	@Override
 	public void notifyGuardarPuntaje(int turnoActual, int puntosJugador) {
 		table.setValueAt(puntosJugador, turnoActual, 1);
@@ -416,7 +417,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 			JFrame f = new JFrame();
 			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			JOptionPane.showMessageDialog(f,jugador.getNombre()+" Gano!!!");
-			c.terminarTurno();
+			c.terminarTurno(true);
 			btnTirarDados.setEnabled(false);
 			btnSeguir.setEnabled(false);
 			btnPlantarse.setEnabled(false);	
@@ -429,8 +430,31 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 		}
 	}
 	@Override
-	public void notifyJugadorAgregado(String name, int pos) {
+	public void notifyJugadorAgregado(String name, int pos, boolean agregado) {
+		JFrame f = new JFrame();
+		f.setLocationRelativeTo(null);
+		if (agregado) {
+			JOptionPane.showMessageDialog(f,"Jugador Agregado Correctamente.","Alert",JOptionPane.WARNING_MESSAGE); 
 			table.setValueAt(name, pos, 0);
 			table.setValueAt(0, pos, 1);
+		}else {
+			JOptionPane.showMessageDialog(f,"El Jugador no fue agregado\nEl nombre no debe ser vacio y tampoco superar los 8 caracteres","Alert",JOptionPane.WARNING_MESSAGE);
+		}
+			
+	}
+	@Override
+	public void notifyAddJugador(boolean masDeDos) {
+		JFrame f = new JFrame();
+		f.setLocationRelativeTo(null);
+		if (masDeDos) {
+				int input = JOptionPane.showConfirmDialog(null, "Agregar Otro Jugador?");
+			    if (input == 0) {
+			    	String name = JOptionPane.showInputDialog(f,"Enter Name");
+			    	c.addJugador(name);
+			    }	
+		}else{
+			String name = JOptionPane.showInputDialog(f,"Enter Name");
+			c.addJugador(name);
+		}
 	}
 }

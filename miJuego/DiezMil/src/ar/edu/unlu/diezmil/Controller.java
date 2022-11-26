@@ -11,19 +11,15 @@ public class Controller {
 	public void tirar() {
 		juego.contarPuntos(juego.tirar());	
 	}
-	public boolean addJugador(String nombreJ) {
-		if (nombreJ.length() > 0 && nombreJ.length() <= 10) {
-			juego.agregarJugador(nombreJ);
-			return true;
-		}
-		return false;	
+	public void addJugador(String nombreJ) {
+		juego.agregarJugador(nombreJ);
 	}
 	
-	public void nuevoJuego(int cantJugadores) {
-		juego.nuevaPartida(cantJugadores);
+	public void nuevoJuego() {
+		juego.nuevaPartida();
 	}
-	public void terminarTurno() {
-		juego.nextTurno();
+	public void terminarTurno(boolean b) {
+		juego.nextTurno(b);
 	}
 
 	public void reiniciar() {

@@ -10,7 +10,7 @@ public class DiezMil {
 	
 
 	public static void main(String[] args) {
-		Partida juego = new Partida(2);
+		Partida juego = new Partida();
 		Controller controlador = new Controller(juego);	
 		VentanaPrincipal v1 = new VentanaPrincipal(controlador);
 		Consola c1 = new Consola(controlador);
