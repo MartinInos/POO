@@ -14,12 +14,11 @@ public class Controller {
 	public void addJugador(String nombreJ) {
 		juego.agregarJugador(nombreJ);
 	}
-	
 	public void nuevoJuego() {
 		juego.nuevaPartida();
 	}
 	public void terminarTurno(boolean b) {
-		juego.nextTurno(b);
+		juego.finTurno(b);
 	}
 
 	public void reiniciar() {

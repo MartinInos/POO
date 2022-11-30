@@ -80,8 +80,8 @@ public class Partida implements Observable<PartidaObserver>{
 			}
 		if ((puntos != 0) && (jugadores.get(turnoActual-1).getPuntaje()+ptsAcumTurno+puntos <= PMAX)) {
 			this.ptsAcumTurno+= puntos;
-			this.cubilete.apartar(CaraDado.UNO);
-			this.cubilete.apartar(CaraDado.CINCO);
+			this.cubilete.apartarDado(CaraDado.UNO);
+			this.cubilete.apartarDado(CaraDado.CINCO);
 			notifyObserversTiro(tiro);
 			notifyObserversPuntos(ptsAcumTurno);
 			if (jugadores.get(turnoActual-1).getPuntaje()+this.ptsAcumTurno == PMAX) {
@@ -112,7 +112,7 @@ public class Partida implements Observable<PartidaObserver>{
 	public Cubilete getCubilete() {
 		return cubilete;
 	}
-	public void nextTurno(boolean b) {
+	public void finTurno(boolean b) {
 		if (isSumable(ptsAcumTurno,jugadores.get(turnoActual-1))) {
 			jugadores.get(turnoActual-1).sumarPuntos(ptsAcumTurno);	
 		}
@@ -130,7 +130,6 @@ public class Partida implements Observable<PartidaObserver>{
 	public int getTurnoActual() {
 		return this.turnoActual;
 	}
-
 	private boolean isSumable(int nuevosPuntos, Jugador j) {
 		return (j.getPuntaje() + nuevosPuntos <= PMAX && nuevosPuntos != 0); 
 	}

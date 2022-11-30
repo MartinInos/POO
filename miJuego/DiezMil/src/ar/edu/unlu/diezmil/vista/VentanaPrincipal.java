@@ -87,8 +87,7 @@ public class VentanaPrincipal extends JFrame implements PartidaObserver {
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
 	 */
-	private void initialize() {
-	//	DiezMil juego = new DiezMil();	
+	private void initialize() {	
 		frame = new JFrame();
 		frame.getContentPane().setForeground(Color.WHITE);
 		frame.getContentPane().setBackground(new Color(0, 102, 51));

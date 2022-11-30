@@ -70,7 +70,7 @@ public class Cubilete {
 		}
 		return fijosT;
 	}
-	public void apartar(CaraDado cara) {
+	public void apartarDado(CaraDado cara) {
 		int i=0;
 		while (i<dados.size()) {
 			if (dados.get(i).getCara() == cara) {

@@ -7,8 +7,6 @@ import ar.edu.unlu.diezmil.vista.VentanaPrincipal;
 
 public class DiezMil {
 	
-	
-
 	public static void main(String[] args) {
 		Partida juego = new Partida();
 		Controller controlador = new Controller(juego);	
